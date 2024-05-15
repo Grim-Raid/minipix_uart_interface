@@ -7,10 +7,10 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd "$SCRIPTPATH"
 
 # remove the old link
-rm .tmuxinator.yml
+rm .tmux.yml
 
 # link the session file to .tmuxinator.yml
-ln session.yml .tmuxinator.yml
+ln session.yml .tmux.yml
 
 # start tmuxinator
 tmux
