@@ -10,5 +10,5 @@ windows:
   - main:
       layout: even-vertical
       panes:
-        - sleep 0.5; sudo ./example_interface /dev/ttyUSB0 921600 0 /tmp/ttyS2 921600 1
-        - sleep 9.0; ./gatherer /tmp/ttyS3 921600 1 `pwd`/received_data/data.txt 20 2000 TOA_TOT
+        - sleep 0.5; ./example_interface /dev/ttyUSB0 921600 0 /tmp/ttyS2 921600 1
+        - sleep 1.0; ./gatherer /tmp/ttyS3 921600 1 `pwd`/received_data/data.txt 20 2000 TOA_TOT
