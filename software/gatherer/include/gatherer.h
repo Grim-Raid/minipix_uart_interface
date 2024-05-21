@@ -38,7 +38,7 @@
 class Gatherer {
 
 public:
-  Gatherer(const std::string data_path);
+  Gatherer(const std::string data_path, const std::string data_path_meta);
 
   void connect(const std::string& serial_port, const int& baud_rate, const bool& virtual_port);
 
@@ -96,7 +96,7 @@ private:
   // | ------------ saving measured frames to a file ------------ |
 
   FILE* measured_data_file_;
-  FILE* measured_data_file_meta_;
+  FILE* measured_data_meta_file_;;
 
 #if GUI == 1
   // | ------------------------ plotting ------------------------ |
