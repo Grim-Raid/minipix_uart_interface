@@ -14,7 +14,7 @@ windows:
       panes:
         - sleep 0.5; ./example_interface /dev/ttyUSB0 115200 0 /tmp/ttyS2 921600 1
         - sleep 0.5; ./example_interface /dev/ttyUSB1 921600 0 /tmp/ttyS4 921600 1
-        - sleep 0.5; ./example_interface /dev/ttyUSB2 921600 0 /tmp/ttyS6 921600 1
-        - sleep 1.0; ./gatherer /tmp/ttyS3 921600 1 `pwd`/received_data/data_flight_hw/run1.txt `pwd`/received_data/data_flight_hw/run1_meta.txt 20 2000 TOA_TOT
-        - sleep 1.0; ./gatherer /tmp/ttyS5 921600 1 `pwd`/received_data/data_chancellor_hw/run1.txt `pwd`/received_data/data_chancellor_hw/run1_meta.txt 20 2000 TOA_TOT
-        - sleep 1.0; ./gatherer /tmp/ttyS7 921600 1 `pwd`/received_data/data_engineering_hw/run1.txt `pwd`/received_data/data_engineering_hw/run1_meta.txt 20 2000 TOA_TOT
+        - sleep 0.5; ./example_interface /dev/ttyUSB2 115200 0 /tmp/ttyS6 921600 1
+        - sleep 1.0; ./gatherer /tmp/ttyS3 921600 1 `pwd`/received_data/data_flight_G08-W0086/run1.txt `pwd`/received_data/data_flight_G08-W0086/run1_meta.txt 20 2000 TOA_TOT
+        - sleep 1.0; ./gatherer /tmp/ttyS5 921600 1 `pwd`/received_data/data_chancellor_C08-W0086/run1.txt `pwd`/received_data/data_chancellor_C08-W0086/run1_meta.txt 20 2000 TOA_TOT
+        - sleep 1.0; ./gatherer /tmp/ttyS7 921600 1 `pwd`/received_data/data_engineering_K08-W0086/run1.txt ß`pwd`/received_data/data_engineering_K08-W0086/run1_meta.txt 20 2000 TOA_TOT
