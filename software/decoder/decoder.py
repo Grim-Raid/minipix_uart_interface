@@ -18,7 +18,7 @@ from src.parse_file import *
 # #} end of imports
 
 # the file should containt 1 packet of FrameDataMsg_t() per line in HEXadecimal form
-file_path = "data/1GeV_Fe_run2.txt"
+file_path = "data/data_flight_G08-W0086/994run4.txt"
 
 # #{ open the input file => list of "frame_data"
 

@@ -724,8 +724,9 @@ void Gatherer::measureFrame(const uint16_t& acquisition_time_ms, const uint8_t& 
   msg.payload.acquisition_time_ms = acquisition_time_ms;
   msg.payload.mode                = mode;
 
-  current_acquisition_time_ms_ = std::to_string(acquisition_time_ms);
-  timestamp_                   = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+  current_acquisition_time_ms_ = acquisition_time_ms;
+  time_t timestamp;
+  timestamp_                   = asctime(localtime(&timestamp));
 
 
 

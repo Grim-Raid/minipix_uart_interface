@@ -62,8 +62,8 @@ public:
   bool waiting_for_ack_    = false;
   bool waiting_for_tmp_    = false;
   bool waiting_for_status_ = false;
-  std::string current_acquisition_time_ms_;
-  std::string timestamp_;
+  uint16_t current_acquisition_time_ms_;
+  char* timestamp_;
 
 private:
   SerialPort serial_port_;

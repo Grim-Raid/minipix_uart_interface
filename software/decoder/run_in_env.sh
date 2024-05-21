@@ -6,4 +6,4 @@ MY_PATH=`( cd "$MY_PATH" && pwd )`
 cd $MY_PATH
 
 source ./python_env/bin/activate
-./python_env/bin/python3 exporter.py
+./python_env/bin/python3 decoder.py
