@@ -2,7 +2,7 @@
 
 /* constructor Gatherer() //{ */
 
-Gatherer::Gatherer(const std::string data_path) {
+Gatherer::Gatherer(const std::string data_path, const std::string data_path_meta) {
 
   // | --------------- initialize the LLCP handler -------------- |
 
@@ -31,6 +31,7 @@ Gatherer::Gatherer(const std::string data_path) {
   // | ------------ open the file for saving the data ----------- |
 
   measured_data_file_ = fopen(data_path.c_str(), "w");
+  measured_data_meta_file_ = fopen(data_path_meta.c_str(), "w");
 
   if (measured_data_file_ == NULL) {
     printf("Error: cannot open the data output file '%s' for writing!\n", data_path.c_str());
@@ -454,6 +455,9 @@ void Gatherer::callbackFrameTerminator(const LLCP_Message_t* message_in) {
   measuring_frame_ = false;
 
   printf("received frame data terminator: frame id %d, packet count: %d\n", terminator->frame_id, terminator->n_packets);
+
+  // save the data to the file
+  fprintf(measured_data_meta_file_, "%d, %d, %d \n", terminator->frame_id, current_acquisition_time_ms_, timestamp_);
 }
 
 //}
@@ -719,6 +723,11 @@ void Gatherer::measureFrame(const uint16_t& acquisition_time_ms, const uint8_t& 
   // fill in the payload
   msg.payload.acquisition_time_ms = acquisition_time_ms;
   msg.payload.mode                = mode;
+
+  current_acquisition_time_ms_ = std::to_string(acquisition_time_ms);
+  timestamp_                   = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+
+
 
   // convert to network endian
   hton_LLCP_MeasureFrameReqMsg_t(&msg);

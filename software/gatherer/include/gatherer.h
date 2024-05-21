@@ -62,6 +62,8 @@ public:
   bool waiting_for_ack_    = false;
   bool waiting_for_tmp_    = false;
   bool waiting_for_status_ = false;
+  std::string current_acquisition_time_ms_;
+  std::string timestamp_;
 
 private:
   SerialPort serial_port_;
@@ -94,6 +96,7 @@ private:
   // | ------------ saving measured frames to a file ------------ |
 
   FILE* measured_data_file_;
+  FILE* measured_data_file_meta_;
 
 #if GUI == 1
   // | ------------------------ plotting ------------------------ |

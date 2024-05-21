@@ -59,7 +59,7 @@ frame mode: '%s'\n",
   }
 
   // initialize the gatherer
-  Gatherer gatherer(data_path);
+  Gatherer gatherer(data_path, data_path + "_meta");
 
   // open the serial line
   gatherer.connect(serial_port_file, baud_rate, serial_port_virtual);
@@ -110,7 +110,7 @@ frame mode: '%s'\n",
 
   // | ----------- measure ---------- |
   for (int i = 0; i < frame_count; i++) {
-
+    
     printf("measuring frame\n");
     gatherer.measureFrame(frame_duration, frame_mode);
     sleep(0.01);
