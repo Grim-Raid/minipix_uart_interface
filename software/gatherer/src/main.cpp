@@ -14,6 +14,7 @@ int main(int argc, char* argv[]) {
   int         baud_rate;
   bool        serial_port_virtual;
   std::string data_path;
+  std::string data_path_meta;
   int         frame_count;
   uint16_t    frame_duration;
   uint8_t     frame_mode;
@@ -58,8 +59,10 @@ frame mode: '%s'\n",
     return 0;
   }
 
+  data_path_meta = data_path + "_meta"; 
+
   // initialize the gatherer
-  Gatherer gatherer(data_path, data_path + "_meta");
+  Gatherer gatherer(data_path, data_path_meta);
 
   // open the serial line
   gatherer.connect(serial_port_file, baud_rate, serial_port_virtual);
