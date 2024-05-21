@@ -20,15 +20,16 @@ int main(int argc, char* argv[]) {
   uint8_t     frame_mode;
   int         frame_mode_input;
 
-  if (argc == 8) {
+  if (argc == 9) {
 
     serial_port_file    = argv[1];
     baud_rate           = atoi(argv[2]);
     serial_port_virtual = atoi(argv[3]);
     data_path           = argv[4];
-    frame_count         = atoi(argv[5]);
-    frame_duration      = atoi(argv[6]);
-    frame_mode_input    = atoi(argv[7]);
+    data_path_meta      = argv[5];
+    frame_count         = atoi(argv[6]);
+    frame_duration      = atoi(argv[7]);
+    frame_mode_input    = atoi(argv[8]);
     if(frame_mode_input == 0) {
       printf("Frame mode: TOA_TOT\n");
       frame_mode = LLCP_TPX3_PXL_MODE_TOA_TOT;
@@ -59,7 +60,7 @@ frame mode: '%s'\n",
     return 0;
   }
 
-  data_path_meta = data_path + "_meta"; 
+  data_path_meta = data_path +; 
 
   // initialize the gatherer
   Gatherer gatherer(data_path, data_path_meta);
