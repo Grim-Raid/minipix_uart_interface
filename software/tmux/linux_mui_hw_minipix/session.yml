@@ -7,8 +7,14 @@ windows:
       layout: tiled
       panes:
         - socat -d -d PTY,link=/tmp/ttyS2,rawer,echo=0 PTY,link=/tmp/ttyS3,rawer,echo=0
+        - socat -d -d PTY,link=/tmp/ttyS4,rawer,echo=0 PTY,link=/tmp/ttyS5,rawer,echo=0
+        - socat -d -d PTY,link=/tmp/ttyS6,rawer,echo=0 PTY,link=/tmp/ttyS7,rawer,echo=0
   - main:
       layout: even-vertical
       panes:
-        - sleep 0.5; ./example_interface /dev/ttyUSB0 921600 0 /tmp/ttyS2 921600 1
-        - sleep 1.0; ./gatherer /tmp/ttyS3 921600 1 `pwd`/received_data/data.txt 20 2000 TOA_TOT
+        - sleep 0.5; ./example_interface /dev/ttyUSB0 115200 0 /tmp/ttyS2 921600 1
+        - sleep 0.5; ./example_interface /dev/ttyUSB1 921600 0 /tmp/ttyS4 921600 1
+        - sleep 0.5; ./example_interface /dev/ttyUSB2 921600 0 /tmp/ttyS6 921600 1
+        - sleep 1.0; ./gatherer /tmp/ttyS3 921600 1 `pwd`/received_data/data_flight_hw/run1.txt 20 2000 TOA_TOT
+        - sleep 1.0; ./gatherer /tmp/ttyS5 921600 1 `pwd`/received_data/data_chancellor_hw/run1.txt 20 2000 TOA_TOT
+        - sleep 1.0; ./gatherer /tmp/ttyS7 921600 1 `pwd`/received_data/data_engineering_hw/run1.txt 20 2000 TOA_TOT

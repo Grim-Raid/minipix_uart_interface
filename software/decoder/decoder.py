@@ -12,14 +12,13 @@ import tkinter
 # Figure and canvas
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
 from src.structures import *
 from src.parse_file import *
 
 # #} end of imports
 
 # the file should containt 1 packet of FrameDataMsg_t() per line in HEXadecimal form
-file_path = "data/oneweb.txt"
+file_path = "data/1GeV_Fe_run2.txt"
 
 # #{ open the input file => list of "frame_data"
 
@@ -29,9 +28,15 @@ except:
     print("[Error]: can not open input file!")
     exit()
 
+try:
+    outfile = open("output.txt", "w", encoding="ascii")
+except:
+    print("[Error]: can not open output file!")
+    exit()
+
 # parse the input file, dehexify the data and decode the pixel values
 # frame_data = list of all decoded messages from the MUI
-frame_data = parseStream(infile)
+frame_data = parseFile(infile)
 
 # #} open the input file
 
@@ -69,6 +74,7 @@ for idx,frame in enumerate(frame_data):
                 # TOA is the prettiest part and it shows nicely in log()
                 # this is not, ofcourse, an official transformation, please DO NOT USE it if you are going to process the data
                 images_data[frame.frame_id].tot[pixel.x, pixel.y]  = math.log(pixel.tot) if pixel.tot > 0 else 0
+                outfile.writelines(str(images_data[frame.frame_id].tot[pixel.x, pixel.y]) + "\n")
                 # images_data[frame.frame_id].tot[pixel.x, pixel.y]  pixel.tot
 
                 images_data[frame.frame_id].toa[pixel.x, pixel.y]  = pixel.toa

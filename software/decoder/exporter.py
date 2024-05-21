@@ -50,7 +50,7 @@ def exportData(file_path, image):
 # #} end of exportData()
 
 # the file should containt 1 packet of FrameDataMsg_t() per line in HEXadecimal form
-file_path = "data/oneweb_2023-09-25.csv"
+file_path = "data/1GeV_Fe_run3.txt"
 
 if __name__ == '__main__':
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     # parse the input file, dehexify the data and decode the pixel values
     # frame_data = list of all decoded messages from the MUI
-    frame_data = parseStream(infile)
+    frame_data = parseFile(infile)
 
     # #} open the input file
 
