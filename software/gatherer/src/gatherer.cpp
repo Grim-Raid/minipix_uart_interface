@@ -457,7 +457,7 @@ void Gatherer::callbackFrameTerminator(const LLCP_Message_t* message_in) {
   printf("received frame data terminator: frame id %d, packet count: %d\n", terminator->frame_id, terminator->n_packets);
 
   // save the data to the file
-  fprintf(measured_data_meta_file_, "%d, %d, %d \n", terminator->frame_id, current_acquisition_time_ms_, timestamp_);
+  fprintf(measured_data_meta_file_, "%d, %d, %s \n", terminator->frame_id, current_acquisition_time_ms_, timestamp_);
 }
 
 //}
