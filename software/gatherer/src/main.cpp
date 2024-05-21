@@ -60,8 +60,6 @@ frame mode: '%s'\n",
     return 0;
   }
 
-  data_path_meta = data_path +; 
-
   // initialize the gatherer
   Gatherer gatherer(data_path, data_path_meta);
 
