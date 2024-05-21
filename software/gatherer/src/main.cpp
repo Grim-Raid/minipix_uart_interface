@@ -53,7 +53,7 @@ output data path: '%s'\n \
 frame count: '%d'\n \
 frame duration: '%d'\n \
 frame mode: '%s'\n",
-        serial_port_file.c_str(), baud_rate, serial_port_virtual ? "virtual" : "real", data_path.c_str(), frame_count, frame_duration, argv[8]);
+        serial_port_file.c_str(), baud_rate, serial_port_virtual ? "virtual" : "real", data_path.c_str(), frame_count, frame_duration, frame_mode);
   } else {
     printf("params not supplied!\n");
     printf("required: ./gatherer <serial port file> <baud rate> <serial port virtual ? true : false> <output data path> <frame count> <frame duration> <frame mode>\n");
