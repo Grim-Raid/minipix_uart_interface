@@ -725,7 +725,7 @@ void Gatherer::measureFrame(const uint16_t& acquisition_time_ms, const uint8_t& 
   msg.payload.mode                = mode;
 
   current_acquisition_time_ms_ = acquisition_time_ms;
-  time_t timestamp;
+  time_t timestamp = time(NULL);
   timestamp_                   = asctime(localtime(&timestamp));
 
 
