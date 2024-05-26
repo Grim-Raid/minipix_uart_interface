@@ -42,7 +42,7 @@ def exportData(file_path, image):
 
     with open(file_path, "w") as data_file:
 
-        writer = csv.writer(data_file, quoting=csv.QUOTE_NONE, delimiter=',')
+        writer = csv.writer(data_file, quoting=csv.QUOTE_NONE, delimiter=' ')
 
         for i in range(0, 256):
             writer.writerow(["{}".format(x) for x in image[i, :]])
@@ -50,7 +50,7 @@ def exportData(file_path, image):
 # #} end of exportData()
 
 # the file should containt 1 packet of FrameDataMsg_t() per line in HEXadecimal form
-file_path = "data/1GeV_Fe_run3.txt"
+file_path = "data/data_engineering_K09-W0086/600NeRun3.txt"
 
 if __name__ == '__main__':
 
@@ -133,9 +133,9 @@ if __name__ == '__main__':
 
         if isinstance(image, ImageToAToT):
 
-            dsc_file_path = "data_export/{}.dsc".format(key)
-            toa_file_path = "data_export/toa_{}.txt".format(key)
-            tot_file_path = "data_export/tot_{}.txt".format(key)
+            dsc_file_path = "data_export/dsc/{}.dsc".format(key)
+            toa_file_path = "data_export/toa/toa_{}.txt".format(key)
+            tot_file_path = "data_export/tot/tot_{}.txt".format(key)
 
             exportDsc(dsc_file_path, key, "ToAToT")
             exportData(toa_file_path, image.toa)
