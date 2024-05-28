@@ -137,7 +137,7 @@ if __name__ == '__main__':
             toa_file_path = "data_export/toa/toa_{}.txt".format(key)
             tot_file_path = "data_export/tot/tot_{}.txt".format(key)
 
-            exportDsc(dsc_file_path, key, "ToAToT")
+            exportDsc(dsc_file_path, "ToAToT", key)
             exportData(toa_file_path, image.toa)
             exportData(tot_file_path, image.tot)
 
