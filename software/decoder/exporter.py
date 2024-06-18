@@ -49,11 +49,6 @@ def format_date(input_date_str):
 
 
 def exportDsc(file_path, image_mode, image_id, acq_time, acq_start_time):
-    sql = "INSERT INTO meta (FrameID, AcqTime, Timestamp) VALUES (%s, %s, %s)"
-    val = (image_id, acq_time, acq_start_time)
-    mycursor.execute(sql, val)
-    mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
     with open(file_path, "w") as dsc_file:
 
         dsc_file.write("A{0:09d}\r\n\
@@ -198,16 +193,35 @@ if __name__ == '__main__':
             image = images_data.get(key)
 
             print("exporting: {}".format(key))
-            acq_time, acq_start_time = importMetadata(meta_file_path + "/" + name + "_meta.txt", key)
-            print(acq_time, acq_start_time)
-            acq_start_time = format_date(acq_start_time)
-
+            
             if isinstance(image, ImageToAToT):
+                acq_time, acq_start_time = importMetadata(meta_file_path + "/" + name + "_meta.txt", key)
+                print(acq_time, acq_start_time)
+                try:
+                    acq_start_time = format_date(acq_start_time)
+                    sql = "INSERT INTO meta (FrameID, AcqTime, Timestamp) VALUES (%s, %s, %s)"
+                    val = (key, acq_time, acq_start_time)
+                    mycursor.execute(sql, val)
+                    mydb.commit()
+                    print(mycursor.rowcount, "record inserted.")
+                except:
+                    print("Error in date format, inserting without date and acq time")
+                    sql = "INSERT INTO meta (FrameID) VALUES (%s)"
+                    val = (key)
+                    mycursor.execute(sql, val)
+                    mydb.commit()
+                    print(mycursor.rowcount, "record inserted.")
+
 
                 dsc_toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt.dsc".format(key)
                 dsc_tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt.dsc".format(key)
                 toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt".format(key)
                 tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt".format(key)
+                sql = "INSERT INTO meta (FrameID, AcqTime, Timestamp) VALUES (%s, %s, %s)"
+                val = (key, acq_time, acq_start_time)
+                mycursor.execute(sql, val)
+                mydb.commit()
+                print(mycursor.rowcount, "record inserted.")
 
                 mycursor.execute("CREATE TABLE IF NOT EXISTS {} (x INT, y INT, toa DOUBLE, tot DOUBLE, PRIMARY KEY (x,y))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
