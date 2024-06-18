@@ -205,13 +205,7 @@ if __name__ == '__main__':
                     mydb.commit()
                     print(mycursor.rowcount, "record inserted.")
                 except:
-                    print("Error in date format, inserting without date and acq time")
-                    sql = "INSERT INTO meta (FrameID) VALUE (%s)"
-                    val = key
-                    mycursor.execute(sql, val)
-                    mydb.commit()
-                    print(mycursor.rowcount, "record inserted.")
-
+                    print("Error in date format, meta insertions failed")
 
                 dsc_toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt.dsc".format(key)
                 dsc_tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt.dsc".format(key)
