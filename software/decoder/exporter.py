@@ -7,6 +7,7 @@ import numpy
 import os
 import math
 import csv
+
 import mysql.connector
 from datetime import datetime
 
@@ -24,7 +25,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="grim",
   password="password",
-  database="TE1_Data"
+  database="TE1_data"
 )
 
 mycursor = mydb.cursor()
