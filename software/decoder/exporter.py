@@ -86,7 +86,7 @@ def exportData(file_path, image, imageID, type="toa"):
         for i in range(0, 256):
             for x in image[i, :]:
                 writer.writerow(["{}".format(x)])
-                sql = " INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
+                sql = "INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
                 val = (imageID, i, x)
                 mycursor.execute(sql, val)
                 mydb.commit()
@@ -212,7 +212,7 @@ if __name__ == '__main__':
                 toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt".format(key)
                 tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt".format(key)
 
-                mycursor.execute("CREATE TABLE IF NOT EXISTS frame{} (x INT(3), y INT(3), toa DOUBLE(8, 7), tot DOUBLE(8,7), PRIMARY KEY (x,y))".format(key))
+                mycursor.execute("CREATE TABLE IF NOT EXISTS frame{} (id INT(4) NOT NULL AUTO_INCREMENT, x INT(3), y INT(3), toa DOUBLE(8, 7), tot DOUBLE(8,7), PRIMARY KEY (id))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
                 exportDsc(dsc_tot_file_path, "ToT", key, acq_time, acq_start_time)
                 exportData(toa_file_path, image.toa, key, type="toa")
