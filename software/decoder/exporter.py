@@ -212,7 +212,7 @@ if __name__ == '__main__':
                 toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt".format(key)
                 tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt".format(key)
 
-                mycursor.execute("CREATE TABLE IF NOT EXISTS {} (x INT, y INT, toa DOUBLE, tot DOUBLE, PRIMARY KEY (x,y))".format(key))
+                mycursor.execute("CREATE TABLE {} (x INT, y INT, toa DOUBLE, tot DOUBLE, PRIMARY KEY (x,y))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
                 exportDsc(dsc_tot_file_path, "ToT", key, acq_time, acq_start_time)
                 exportData(toa_file_path, image.toa, type="toa")
