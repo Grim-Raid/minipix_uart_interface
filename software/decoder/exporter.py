@@ -215,8 +215,8 @@ if __name__ == '__main__':
                 mycursor.execute("CREATE TABLE IF NOT EXISTS frame{} (x INT(3), y INT(3), toa DOUBLE(8, 7), tot DOUBLE(8,7), PRIMARY KEY (x,y))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
                 exportDsc(dsc_tot_file_path, "ToT", key, acq_time, acq_start_time)
-                exportData(toa_file_path, image.toa, type="toa")
-                exportData(tot_file_path, image.tot, type="tot")
+                exportData(toa_file_path, image.toa, key, type="toa")
+                exportData(tot_file_path, image.tot, key, type="tot")
 
             if isinstance(image, ImageToA):
 
