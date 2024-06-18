@@ -199,6 +199,7 @@ if __name__ == '__main__':
 
             print("exporting: {}".format(key))
             acq_time, acq_start_time = importMetadata(meta_file_path + "/" + name + "_meta.txt", key)
+            print(acq_time, acq_start_time)
             acq_start_time = format_date(acq_start_time)
 
             if isinstance(image, ImageToAToT):
