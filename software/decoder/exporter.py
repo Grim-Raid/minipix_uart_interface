@@ -7,6 +7,8 @@ import numpy
 import os
 import math
 import csv
+import mysql.connector
+from datetime import datetime
 
 from src.structures import *
 from src.parse_file import *
@@ -17,8 +19,40 @@ from src.export_methods import *
 
 # #{ exportDsc()
 
-def exportDsc(file_path, image_mode, image_id, acq_time, acq_start_time):
 
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="grim",
+  password="password",
+  database="TE1_Data"
+)
+
+mycursor = mydb.cursor()
+
+
+
+def format_date(input_date_str):
+    # Define the input date format
+    input_format = "%a %b %d %H:%M:%S %Y"
+    
+    # Parse the input date string to a datetime object
+    datetime_obj = datetime.strptime(input_date_str, input_format)
+    
+    # Define the output date format
+    output_format = "%Y-%m-%d %H:%M:%S"
+    
+    # Format the datetime object to the desired output format
+    formatted_date_str = datetime_obj.strftime(output_format)
+    
+    return formatted_date_str
+
+
+def exportDsc(file_path, image_mode, image_id, acq_time, acq_start_time):
+    sql = "INSERT INTO meta (FrameID, AcqTime, Timestamp) VALUES (%s, %s, %s)"
+    val = (image_id, acq_time, acq_start_time)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
     with open(file_path, "w") as dsc_file:
 
         dsc_file.write("A{0:09d}\r\n\
@@ -47,15 +81,19 @@ char[64]\r\n\
 
 # #{ exportData()
 
-def exportData(file_path, image):
+def exportData(file_path, image, imageID, type="toa"):
 
     with open(file_path, "w") as data_file:
 
         writer = csv.writer(data_file, quoting=csv.QUOTE_NONE, delimiter=' ')
 
         for i in range(0, 256):
-            writer.writerow(["{}".format(x) for x in image[i, :]])
-
+            for x in image[i, :]:
+                writer.writerow(["{}".format(x)])
+                sql = " INSERT INTO {} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
+                val = (imageID, i, x)
+                mycursor.execute(sql, val)
+                mydb.commit()
 # #} end of exportData()
 
 def importMetadata(file_path, key):
@@ -160,6 +198,7 @@ if __name__ == '__main__':
 
             print("exporting: {}".format(key))
             acq_time, acq_start_time = importMetadata(meta_file_path + "/" + name + "_meta.txt", key)
+            acq_start_time = format_date(acq_start_time)
 
             if isinstance(image, ImageToAToT):
 
@@ -168,10 +207,11 @@ if __name__ == '__main__':
                 toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt".format(key)
                 tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt".format(key)
 
+                mycursor.execute("CREATE TABLE IF NOT EXISTS {} (x INT, y INT, toa DOUBLE, tot DOUBLE, PRIMARY KEY (x,y))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
                 exportDsc(dsc_tot_file_path, "ToT", key, acq_time, acq_start_time)
-                exportData(toa_file_path, image.toa)
-                exportData(tot_file_path, image.tot)
+                exportData(toa_file_path, image.toa, type="toa")
+                exportData(tot_file_path, image.tot, type="tot")
 
             if isinstance(image, ImageToA):
 

@@ -14,6 +14,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from src.structures import *
 from src.parse_file import *
+from pyscript import display
 
 # #} end of imports
 
@@ -201,6 +202,9 @@ def loadImage(key):
 
         subplot3.imshow(images_data[key].ftoa, interpolation='none')
         subplot3.set_title("FToA")
+        display(subplot1, target="mpl")
+        display(subplot2, target="mpl")
+        display(subplot3, target="mpl")
 
     elif isinstance(images_data[key], ImageToA):
 
