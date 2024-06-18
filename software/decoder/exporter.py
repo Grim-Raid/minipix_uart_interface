@@ -85,6 +85,7 @@ def exportData(file_path, image, imageID, type="toa"):
 
         for i in range(0, 256):
             for x in image[i, :]:
+                print(i, x)
                 writer.writerow(["{}".format(x)])
                 sql = "INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
                 val = (imageID, i, x)
