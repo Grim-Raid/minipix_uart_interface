@@ -206,7 +206,7 @@ if __name__ == '__main__':
                     print(mycursor.rowcount, "record inserted.")
                 except:
                     print("Error in date format, inserting without date and acq time")
-                    sql = "INSERT INTO meta (FrameID) VALUES (%s)"
+                    sql = "INSERT INTO meta (FrameID) VALUE (%s)"
                     val = key
                     mycursor.execute(sql, val)
                     mydb.commit()
