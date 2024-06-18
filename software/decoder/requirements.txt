@@ -1,5 +1,5 @@
 numpy
 matplotlib
 tk
-mysql.conneector
+mysql-connector-python
 datetime
