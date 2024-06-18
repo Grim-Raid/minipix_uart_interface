@@ -207,7 +207,7 @@ if __name__ == '__main__':
                 except:
                     print("Error in date format, inserting without date and acq time")
                     sql = "INSERT INTO meta (FrameID) VALUES (%s)"
-                    val = (key)
+                    val = key
                     mycursor.execute(sql, val)
                     mydb.commit()
                     print(mycursor.rowcount, "record inserted.")
@@ -217,11 +217,6 @@ if __name__ == '__main__':
                 dsc_tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt.dsc".format(key)
                 toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt".format(key)
                 tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt".format(key)
-                sql = "INSERT INTO meta (FrameID, AcqTime, Timestamp) VALUES (%s, %s, %s)"
-                val = (key, acq_time, acq_start_time)
-                mycursor.execute(sql, val)
-                mydb.commit()
-                print(mycursor.rowcount, "record inserted.")
 
                 mycursor.execute("CREATE TABLE IF NOT EXISTS {} (x INT, y INT, toa DOUBLE, tot DOUBLE, PRIMARY KEY (x,y))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
