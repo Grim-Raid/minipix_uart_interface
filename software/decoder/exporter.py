@@ -109,9 +109,9 @@ def importMetadata(file_path, key):
         print("[Error]: can not open metadata file!")
         return -1, 'unknown'
 # the file should containt 1 packet of FrameDataMsg_t() per line in HEXadecimal form
-file_path = "data/data_flight_G08-W0086/data"
-meta_file_path = "data/data_flight_G08-W0086/meta"
-write_path = "data_export/data_flight_G08"
+file_path = "data/data_engineering_K09-W0086/data"
+meta_file_path = "data/data_engineering_K09-W0086/meta"
+write_path = "data_export/data_data/data_engineering_K09"
 
 if __name__ == '__main__':
 
