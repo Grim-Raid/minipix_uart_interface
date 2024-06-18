@@ -84,13 +84,14 @@ def exportData(file_path, image, imageID, type="toa"):
         writer = csv.writer(data_file, quoting=csv.QUOTE_NONE, delimiter=' ')
 
         for i in range(0, 256):
-            for x in image[i, :]:
-                print(i, x)
+            for j in range(0, 256):
+                x = image[i, j]
                 writer.writerow(["{}".format(x)])
                 sql = "INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
                 val = (imageID, i, x)
                 mycursor.execute(sql, val)
                 mydb.commit()
+            print('row inserted')
 # #} end of exportData()
 
 def importMetadata(file_path, key):
