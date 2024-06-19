@@ -90,8 +90,8 @@ def exportData(file_path, image, imageID, type="toa"):
                 sql = "INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
                 val = (imageID, i, x)
                 mycursor.execute(sql, val)
-                mydb.commit()
         print("frame{} data inserted".format(imageID) + " " + type)
+        mydb.commit()
 # #} end of exportData()
 
 def importMetadata(file_path, key):
