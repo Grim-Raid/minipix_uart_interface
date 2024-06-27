@@ -83,15 +83,15 @@ def exportData(file_path, image, imageID, type="toa"):
 
         writer = csv.writer(data_file, quoting=csv.QUOTE_NONE, delimiter=' ')
 
-        for i in range(0, 256):
-            for j in range(0, 256):
-                x = image[i, j]
-                # writer.writerow(["{}".format(x)])
-                sql = "INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
-                val = (imageID, i, x)
-                mycursor.execute(sql, val)
-        print("frame{} data inserted".format(imageID) + " " + type)
-        mydb.commit()
+    #     # for i in range(0, 256):
+    #     #     for j in range(0, 256):
+    #     #         x = image[i, j]
+    #     #         # writer.writerow(["{}".format(x)])
+    #     #         sql = "INSERT INTO frame{} (x, y, {}) VALUES (%s, %s, %s)".format(imageID, type)
+    #     #         val = (imageID, i, x)
+    #     #         mycursor.execute(sql, val)
+    #     print("frame{} data inserted".format(imageID) + " " + type)
+    #     mydb.commit()
 # #} end of exportData()
 
 def importMetadata(file_path, key):
@@ -201,8 +201,10 @@ if __name__ == '__main__':
                 print(acq_time, acq_start_time)
                 try:
                     acq_start_time = format_date(acq_start_time)
-                    sql = "INSERT INTO meta (FrameID, AcqTime, Timestamp) VALUES (%s, %s, %s)"
-                    val = (key, acq_time, acq_start_time)
+                    tot = image.toa.tostring()
+                    toa = image.tot.tostring()
+                    sql = "INSERT INTO data (FrameID, AcqTime, Timestamp, toa, tot) VALUES (%s, %s, %s, %s, %s)"
+                    val = (key, acq_time, acq_start_time, toa, tot)
                     mycursor.execute(sql, val)
                     mydb.commit()
                     print(mycursor.rowcount, "record inserted.")
@@ -214,7 +216,6 @@ if __name__ == '__main__':
                 toa_file_path = write_path + "/" + name + "/toa/toa_{}.txt".format(key)
                 tot_file_path = write_path + "/" + name + "/tot/tot_{}.txt".format(key)
 
-                mycursor.execute("CREATE TABLE IF NOT EXISTS frame{} (id INT(4) NOT NULL AUTO_INCREMENT, x INT, y INT, toa DOUBLE, tot DOUBLE, PRIMARY KEY (id))".format(key))
                 exportDsc(dsc_toa_file_path, "ToA", key, acq_time, acq_start_time)
                 exportDsc(dsc_tot_file_path, "ToT", key, acq_time, acq_start_time)
                 exportData(toa_file_path, image.toa, key, type="toa")
