@@ -14,12 +14,10 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from src.structures import *
 from src.parse_file import *
-from pyscript import display
-
 # #} end of imports
 
 # the file should containt 1 packet of FrameDataMsg_t() per line in HEXadecimal form
-file_path = "data/data_engineering_K09-W0086/600NeRun1.txt"
+file_path = "data/data_engineering_K09-W0086/data/1GeVProtonRun1.txt"
 
 # #{ open the input file => list of "frame_data"
 
@@ -202,9 +200,6 @@ def loadImage(key):
 
         subplot3.imshow(images_data[key].ftoa, interpolation='none')
         subplot3.set_title("FToA")
-        display(subplot1, target="mpl")
-        display(subplot2, target="mpl")
-        display(subplot3, target="mpl")
 
     elif isinstance(images_data[key], ImageToA):
 

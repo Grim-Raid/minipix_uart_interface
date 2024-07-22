@@ -30,6 +30,10 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
+def createTable():
+    mycursor.execute("CREATE TABLE if NOT EXISTS data (FrameID INT, AcqTime INT, Timestamp Timestamp, toa MEDIUMBLOB, tot MEDIUMBLOB)")
+    mydb.commit()
+
 
 
 def format_date(input_date_str):
@@ -189,7 +193,7 @@ if __name__ == '__main__':
         # #} end of frame_data => list of numpy images
 
         ## | -------------------- export the images ------------------- |
-
+        createTable()
         for idx,key in enumerate(images_data):
 
             image = images_data.get(key)
@@ -201,8 +205,8 @@ if __name__ == '__main__':
                 print(acq_time, acq_start_time)
                 try:
                     acq_start_time = format_date(acq_start_time)
-                    tot = image.toa.tostring()
-                    toa = image.tot.tostring()
+                    tot = image.toa.tobytes()
+                    toa = image.tot.tobytes()
                     sql = "INSERT INTO data (FrameID, AcqTime, Timestamp, toa, tot) VALUES (%s, %s, %s, %s, %s)"
                     val = (key, acq_time, acq_start_time, toa, tot)
                     mycursor.execute(sql, val)

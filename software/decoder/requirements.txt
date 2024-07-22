@@ -4,3 +4,4 @@ tk
 mysql-connector-python
 datetime
 csv
+pyscript
